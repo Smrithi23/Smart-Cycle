@@ -3,7 +3,7 @@ db = mysql.connector.connect(
     host="localhost",
     user="<yourusername>",
     passwd="<yourpassword>",
-    database="<yourdb>"
+    database="SmartCycle"
 )
 print("Starting python script")
 
