@@ -6,7 +6,7 @@
 
 <body>
     <?php include_once "../modules/user/login.php" ?>
-    <h1>LOGIN</h1>
+    <h1>User Login</h1>
     <?php echo $message ?>
     <form id="login-form" class="form" method="POST">
         Username: <input type="text" name="username"><br>
