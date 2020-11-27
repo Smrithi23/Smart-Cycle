@@ -1,5 +1,5 @@
 <?php
-    require "../config/config.php";
+    require $_SERVER['DOCUMENT_ROOT']."/config/config.php";
 
     //Check if entered credentials are correct
 

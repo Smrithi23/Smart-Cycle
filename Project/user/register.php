@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <?php include_once "../modules/user/register.php"; ?>
+    <?php include_once $_SERVER['DOCUMENT_ROOT']."/modules/user/register.php"; ?>
     <h1>REGISTER</h1>
     <form id="register-form" class="form" method="POST" action="">
         Username: <input type="text" name="username"><br>

@@ -1,6 +1,6 @@
 <?php
 
-    require "../config/config.php";
+    require $_SERVER['DOCUMENT_ROOT']."/config/config.php";
     
     //if form is submitted
     if(isset($_POST['submit'])){

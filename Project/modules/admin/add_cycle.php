@@ -1,5 +1,5 @@
 <?php
-    require "../../config/config.php";
+    require $_SERVER['DOCUMENT_ROOT']."/config/config.php";
 
     $station_id = mysqli_real_escape_string($con, $REQUEST['station_id']);
     $stand_name = mysqli_real_escape_string($con, $REQUEST['stand_name']);

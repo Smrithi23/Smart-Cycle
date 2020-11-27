@@ -1,5 +1,5 @@
 <?php
-    require "../config/config.php";
+    require $_SERVER['DOCUMENT_ROOT']."/config/config.php";
 
     if(isset($_POST['submit'])){ 
         //get these variables from database

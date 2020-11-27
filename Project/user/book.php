@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <?php include_once "../modules/user/book.php"; ?>
+    <?php include_once $_SERVER['DOCUMENT_ROOT']."/modules/user/book.php"; ?>
     <h1>RENT A CYCLE</h1>
     <form id="book-form" class="form" method="POST" action="">
         Cycle Number: <input type="number" name="cycle_number"><br>

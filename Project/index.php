@@ -1,7 +1,7 @@
 <?php
 
     if($_SERVER['REQUEST_URI'] === '/') {
-        require "./user/login.php";
+        require $_SERVER['DOCUMENT_ROOT']."/user/login.php";
     }
 
 ?>

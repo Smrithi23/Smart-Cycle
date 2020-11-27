@@ -1,5 +1,5 @@
 <?php
-    require '../../config/config.php';
+    require $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
 
     $sql = "SELECT cycle_number, availability, station_name, stand_name FROM Cycle natural join Stand natural join Station";
 
