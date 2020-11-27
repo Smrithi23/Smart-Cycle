@@ -13,15 +13,23 @@
 
         // QUERY - Check if entered credentials are correct
             
-        $register = "INSERT INTO User (username, first_name, last_name, phone_number, password) VALUES 
-                    ($username, $first_name, $last_name, $phone_number, $password)";
-
-        if(mysqli_query($conn, $register)){
-            echo "registered successfully";
+        $sql = "INSERT INTO User (username, first_name, last_name, phone_number, password) VALUES 
+                    ('$username', '$first_name', '$last_name', '$phone_number', '$password')";
+        if(!is_numeric($phone_number)) {
+            $message = "";
+            $error = "Enter a valid contact number";
+        } else if (strlen($phone_number) != 10) {
+            $message = "";
+            $error = "Contact number must be 10 digits long";
+        } else  if (!mysqli_query($conn, $sql)) {
+            if(substr(mysqli_error($conn), 0, 15) === "Duplicate entry") {
+                $message = "";
+                $error = "Username already exists";
+            }
         } else {
-            echo "error";
+            mysqli_query($conn, $sql);
+            $error = "";
+            $message = "Registered Successfully";
         }
     }
 ?>
-
-
