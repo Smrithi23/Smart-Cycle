@@ -37,41 +37,56 @@
         //start time
         $start_time = date('H:i:sa');
 
-    //Insert the details into cycle_usage table when cycle is booked
+    //1- Insert the details into cycle_usage table when cycle is booked
     $insertCycleUsageOnBook = "INSERT into cycle_usage 
     values ($cycle_id, $user_id, $start_date, $start_time,$card_number,$exp_month, $exp_year, $cvv)";
 
     if(mysqli_query($con,$insertCycleUsageOnBook)){
 
+        echo "Successfully inserted in Cycle_usage";
+
+         //2-Update the cycle table - availability attribute when a cycle is booked
+         $updateAvailabilityOnBook = "UPDATE Cycle
+         SET availability = False
+         where cycle_number = $cycle_number";
+
+            if(mysqli_query($con,$updateAvailabilityOnBook)){
+              echo "Successfully updated availability";
+
+              //3-Update the stand table - no_of_cycles when a cycle is booked 
+              $updateStandOnBook = "UPDATE Stand
+              set no_of_cycles = no_of_cycles - 1  
+              where stand_id = '$stand_id'";
+
+              if(mysqli_query($con,$updateStandOnBook)){
+                echo "Successfully updated no_of_cycles";
+
+                 } 
+              else{
+                echo "Error while updating no_of_cycles";
+                //revert 1,2,3
+                //update/delete may or may not be performed depending on error type
+
+                 }
+            } 
+            else{
+                echo "Error while updating availability";
+                //revert 1,2
+                //update/delete may or may not be performed depending on error type
+
+            }
     } 
     else{
-        
+        echo "An error occured. Please try again";
+        //revert 1
+        //delete may or may not be performed depending on error type
+
     }
 
-    //Update the cycle table - availability attribute when a cycle is booked
-    $updateAvailabilityOnBook = "UPDATE Cycle
-    SET availability = False
-    where cycle_number = $cycle_number";
-
-    if(mysqli_query($con,$updateAvailabilityOnBook)){
-
-    } 
-    else{
-        
-    }
+   
 
 
-    //Update the stand table - no_of_cycles when a cycle is booked 
-    $updateStandOnBook = "UPDATE Stand
-    Set no_of_cycles = no_of_cycles - 1  
-    Where stand_id = $stand_id";
-
-    if(mysqli_query($con,$updateStandOnBook)){
-
-    } 
-    else{
-        
-    }
+   
     }
 ?>
 
