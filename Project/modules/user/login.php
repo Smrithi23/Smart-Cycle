@@ -1,6 +1,6 @@
 <?php
 
-    require $_SERVER['DOCUMENT_ROOT']."/config/config.php";
+    require $_SERVER['DOCUMENT_ROOT']."/smart-cycle/Smart-cycle/Project/config/config.php";
 
     if(isset($_POST['login-submit'])) {
         // POST variables
