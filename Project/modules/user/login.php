@@ -3,8 +3,6 @@
 
     function authenticate ($username, $password) {
         // POST variables
-        $username = $_POST['username'];
-        $password = $_POST['password'];
         $password = "SELECT MD5($password)";
         $count = "SELECT COUNT(*) FROM 'User' WHERE 'username' = $username AND 'password' = $password";
         $res = "SELECT * FROM 'User' WHERE 'username' = $username AND 'password' = $password";
@@ -23,6 +21,6 @@
     }
     
     if(isset($_POST['login'])) {
-        $message = authenticate();
+        $message = authenticate($_POST['username'], $_POST['password']);
     }
 ?>
