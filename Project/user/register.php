@@ -13,7 +13,7 @@
         Last Name: <input type="text" name="last_name"><br>
         Phone Number: <input type="tel" name="phone_number"><br>
         Password: <input type="password" name="password"><br>
-        <input type="submit" name="submit" value="submit">
+        <input type="submit" name="register-submit" value="Register">
     </form>
 </body>
 
