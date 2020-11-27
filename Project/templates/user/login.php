@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <?php include_once "../../modules/user/login.php"; ?>
+    <?php include_once "../modules/user/login.php"; ?>
     <h1>LOGIN</h1>
     <?php print_r($message) ?>
     <form id="login-form" class="form" method="POST" action="../../modules/user/login.php">
