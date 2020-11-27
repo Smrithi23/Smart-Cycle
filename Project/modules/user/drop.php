@@ -1,59 +1,71 @@
 <?php
+
     require $_SERVER['DOCUMENT_ROOT']."/config/config.php";
 
-    if(isset($_POST['submit'])){
+    if(isset($_POST['drop-submit'])){
 
-    //set from database
-    $cno;
+        // POST variables
+        $station_name = $_POST["station_name"];
+        $stand_name = $_POST["stand_name"];
 
-    //set from form
-    $stand_name = $_POST['stand_name'];
-    $station_name = $_POST['station_name'];
-    //Update the cycle table - stand_id when cycle is dropped
-    $updateStandIdOnDrop = "UPDATE Cycle
-    set Cycle.stand_id = Stand.stand_id
-    From Station
-    Natural join Stand
-    Where Station.station_name = $station_name
-    And Stand.stand_name = $stand_name";
+        $user_id = $_SESSION['user_id'];
+        // check if the user has taken a cycle
 
-    if(mysqli_query($con,$updateStandIdOnDrop)){
+        $sql = "SELECT booked AS check FROM User WHERE user_id = '$user_id'";
+        $res = mysqli_fetch_assoc(mysqli_query($conn, $sql)) or die(mysqli_error($conn));
 
-    } 
-    else{
-        
-    }
+        if($res["check"]) {
+            // user has taken a cycle
 
-    //Update the stand table - no_of_cycles when a cycle is dropped
-    $updateStandOnDrop = "UPDATE Stand
-    set Stand.no_of_cycles = Stand.no_of_cycles - 1
-    Where Stand.stand_id = Stand.stand_id
-    From Station
-    Natural join Stand
-    Where Station.station_name = $station_name
-    And Stand.stand_name = $stand_name";
+            // get cycle number
+            $sql = "SELECT cycle_number AS no FROM Cycle_Usage WHERE user_id = '$user_id'";
+            $res = mysqli_fetch_assoc(mysqli_query($conn, $sql)) or die(mysqli_error($conn));
 
-    if(mysqli_query($con,$updateStandOnDrop)){
-        
-    } 
-    else{
-        
-    }
+            if($res["no"]) {
+                $cycle_number = $res["no"];
+                // remove record from Cycle_Usage
+                $sql = "DELETE FROM Cycle_Usage WHERE cycle_number = '$cycle_number'";
+                if(mysqli_query($conn, $sql)) {
+                    $sql = "SELECT station_id as id FROM Station WHERE station_name = '$station_name'";
+                    $res = mysqli_fetch_assoc(mysqli_query($conn, $sql)) or die(mysqli_error($conn));
 
-
-
-    //Delete the row from cycle_usage when cycle is dropped
-    $DeleteCycleUsageOnDrop = "DELETE from cycle_usage
-    Where cycle_no = $cno";
-
-    if(mysqli_query($con,$DeleteCycleUsageOnDrop)){
-
-    } 
-    else{
-        
-    }
-
-    //Deduct 21 rupees from credit card
+                    if($res["id"]) {
+                        $sql = "SELECT stand_id as id FROM Station WHERE station_id = '$station_id' AND stand_name = '$stand_name'";
+                        $res = mysqli_fetch_assoc(mysqli_query($conn, $sql)) or die(mysqli_error($conn));
+                        if($res["id"]) {
+                            $sql = "UPDATE Cycle SET stand_id = '$stand_id' AND SET availability = '1' WHERE cycle_number = $cycle_number";
+                            if(mysqli_query($conn, $sql)) {
+                                $sql = "UPDATE Stand SET no_of_cycles = no_of_cycles + 1 stand_id = '$stand_id'";
+                                if(mysqli_query($conn, $sql)) {
+                                    // calculate amount
+                                    $sql = "SELECT TIME_FORMAT(TIMEDIFF(NOW(), start_datetime), '%H') AS hr FROM Cycle_Usage";
+                                    $res = mysqli_fetch_assoc(mysqli_query($conn, $sql)) or die(mysqli_error($conn));
+                                    if($res['hr']) {
+                                        // calculate amount
+                                    } else {
+                                        // check error
+                                    }
+                                } else {
+                                    $message = "Cannot return cycle. Try again later";
+                                    $sql = "UPDATE Cycle SET availability = '0'";
+                                    mysqli_query($conn, $sql)
+                                }
+                            } else {
+                                $message = "Cannot return cycle. Try again later";
+                            }
+                        } else {
+                            $message = "Cannot return cycle. Try again later";
+                        }
+                    } else {
+                        $message = "Cannot return cycle. Try again later";
+                    }
+                } else {
+                    $message = "Cannot return cycle. Try again later";
+                }
+            }
+        } else {
+            $message = "No cycle to return";
+        }
 
     }
 ?>

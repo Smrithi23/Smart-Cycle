@@ -1,8 +1,8 @@
 <?php
-    require $_SERVER['DOCUMENT_ROOT']."/smart-cycle/Smart-cycle/Project/config/config.php";
+    require $_SERVER['DOCUMENT_ROOT']."/config/config.php";
 
     if(isset($_POST['book-submit'])){
-      
+
         //set variables from form
         $cycle_number = $_POST['cycle_number'];
         $card_number = $_POST['card_number'];
@@ -10,86 +10,54 @@
         $exp_year = $_POST['exp_year'];
         $cvv = $_POST['cvv'];
 
+        // Check if the user hasnt already taken a cycle
+        $sql = "SELECT COUNT(*) AS num FROM User WHERE username = 'smrithi'";
+        $res = mysqli_fetch_assoc(mysqli_query($conn, $sql)) or die(mysqli_error($conn));
 
-        //check if cycle number is valid
-        $isCycle = "select * from Cycle where cycle_number = '$cycle_number'";
-        $result = mysqli_fetch_assoc(mysqli_query($conn, $isCycle));
-        if($result == null || $result['availability'] == false) {
-            echo "Cycle is not available.";
-
-        }
-        else{
-            $cycle_id =  $result['cycle_id'];
-            $stand_id = $result['stand_id'];
-        }
-        //user id
-        $username = $_SESSION["username"];
-        $getUserId = "select user_id from User where username = '$username'";
-        $result = mysqli_fetch_assoc(mysqli_query($conn,$getUserId)) or die(mysqli_error($conn));
-        $user_id = $result['user_id'];
-
-        //set timezone
-        date_default_timezone_set("Asia/kolkata");
-
-        //start date
-        $start_date = date('Y-m-d');
-    
-        //start time
-        $start_time = date('H:i:sa');
-
-    //1- Insert the details into cycle_usage table when cycle is booked
-    $insertCycleUsageOnBook = "INSERT into cycle_usage 
-    values ($cycle_id, $user_id, $start_date, $start_time,$card_number,$exp_month, $exp_year, $cvv)";
         if($res["num"]) {
             // Check if cycle number is correct
             $sql = "SELECT COUNT(*) AS num FROM Cycle WHERE cycle_number = '$cycle_number'";
             $res = mysqli_fetch_assoc(mysqli_query($conn, $sql)) or die(mysqli_error($conn));
-        echo "Successfully inserted in Cycle_usage";
 
-         //2-Update the cycle table - availability attribute when a cycle is booked
-         $updateAvailabilityOnBook = "UPDATE Cycle
-         SET availability = False
-         where cycle_number = $cycle_number";
+            if($res["num"]) {
+                // Entered cycle number is correct
 
-            if(mysqli_query($con,$updateAvailabilityOnBook)){
-              echo "Successfully updated availability";
+                // Check if the cycle is available
+                $sql = "SELECT availability AS available FROM Cycle WHERE cycle_number = '$cycle_number'";
+                $res = mysqli_fetch_assoc(mysqli_query($conn, $sql));
 
-              //3-Update the stand table - no_of_cycles when a cycle is booked 
-              $updateStandOnBook = "UPDATE Stand
-              set no_of_cycles = no_of_cycles - 1  
-              where stand_id = '$stand_id'";
+                if($res["available"]) {
+                    // Cycle is available
+                    $user_id = $_SESSION['user_id'];
+                    // Enter record into Cycle_Usage table
+                    $sql = "INSERT INTO Cycle_Usage (cycle_number, user_id, start_datetime, card_no, exp_month, exp_year, cvv) 
+                            VALUES ('$cycle_number', '3', NOW(), '$card_number', '$exp_month', '$exp_year', '$cvv')";
 
-              if(mysqli_query($con,$updateStandOnBook)){
-                echo "Successfully updated no_of_cycles";
+                    if(mysqli_query($conn, $sql)) {
 
-                 } 
-              else{
-                echo "Error while updating no_of_cycles";
-                //revert 1,2,3
-                //update/delete may or may not be performed depending on error type
+                        // Make the cycle not available
+                        $sql = "UPDATE Cycle SET availability = '0' WHERE cycle_number = '$cycle_number'";
 
-                 }
-            } 
-            else{
-                echo "Error while updating availability";
-                //revert 1,2
-                //update/delete may or may not be performed depending on error type
+                        if(mysqli_query($conn, $sql)) {
 
-            }
-    } 
-    else{
-        echo "An error occured. Please try again";
-        //revert 1
-        //delete may or may not be performed depending on error type
+                            // Change booked attribute of user to 1
+                            $username = $_SESSION['username'];
+                            $sql = "UPDATE User SET booked = 1 WHERE username = 'smrithi'";
+                            mysqli_query($conn, $sql);
 
-    }
+                            // Find station_id
+                            $sql = "SELECT stand_id AS id FROM Cycle WHERE cycle_number = '$cycle_number'";
+                            $res = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+                            $stand_id = $res['id'];
 
-   
+                            // Reduce the number of cycles in the station
+                            $sql = "UPDATE Stand SET no_of_cycles = no_of_cycles - 1 WHERE stand_id = '$stand_id'";
+                            mysqli_query($conn, $sql);
 
+                            $message = "Successfully booked cycle. Deducted Rs 21.00.";
 
-   
-    }
-?>
+                        } else {
+
                             $message = "Couldn't change the availability of the cycle";
                             // REVERSE inorder to make the change atomic
                             $sql = "DELETE FROM Cycle_Usage WHERE cycle_number = '$cycle_number'";
