@@ -1,18 +1,33 @@
 <?php
+
     require $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
 
-    $station_id = mysqli_real_escape_string($con, $REQUEST['station_id']);
-    $stand_name = mysqli_real_escape_string($con, $REQUEST['stand_name']);
-    $noc = mysqli_real_escape_string($con, $REQUEST['no_of_cycles']);
+    if(isset($_POST['add-stand-submit'])) {
 
-    $sql = "INSERT INTO Stand (stand_name, station_id, no_of_cycles) 
-    VALUES ($stand_name, $station_id, $noc)";
+        // POST variables
+        $station_name = $_POST['station_name'];
+        $stand_name = $_POST['stand_name'];
 
-    if(mysqli_query($con, $sql)){
-        echo "Stand added successfully.";
-    } else{
-        echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+        // QUERY to check if the stand already exists
+        $sql = "SELECT COUNT(*) AS num FROM Station NATURAL JOIN Stand WHERE station_name = '$station_name' AND stand_name = '$stand_name'";
+        $check = mysqli_fetch_assoc(mysqli_query($conn, $sql)) or die(mysqli_error($conn));
+        if($check["num"]) {
+            $message = "Station already exists";
+        } else {
+            // QUERY to find station id
+            $sql = "SELECT station_id AS id FROM Station WHERE station_name = '$station_name'";
+            $res = mysqli_fetch_assoc(mysqli_query($conn, $sql)) or die(mysqli_error($conn));
+            if($res['id']) {
+                $station_id = $res['id'];
+
+                // QUERY to insert
+                $sql = "INSERT INTO Stand (stand_name, station_id) VALUES ('$stand_name', '$station_id');";
+                mysqli_query($conn, $sql) or die(mysqli_error($conn));
+                $message = "Station added successfully";
+            } else {
+                $message = "Station does not exist";
+            }
+        }
     }
 
-    mysqli_close($con)
 ?>

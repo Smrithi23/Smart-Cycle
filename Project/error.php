@@ -12,8 +12,8 @@
     include('./admin/home.php');
     include('./admin/login.php');
     include('./config/config.php');
-    include('./user/book.php');
-    include('./user/drop.php');
+    include('./modules/user/book.php');
+    include('./modules/user/drop.php');
     include('./modules/user/home.php');
     include('./modules/user/login.php');
     include('./modules/user/register.php');

@@ -1,15 +1,19 @@
 <?php
+
     require $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
 
-    $station_name = mysqli_real_escape_string($con, $REQUEST['station_name']);
+    if(isset($_POST['add-station-submit'])) {
 
-    $sql = "INSERT INTO Station (station_name) VALUES ('$station_name');";
+        // POST variables
+        $station_name = $_POST['station_name'];
 
-    if(mysqli_query($con, $sql)){
-        echo "Station added successfully.";
-    } else{
-        echo "ERROR: Could not able to execute $sql. " . mysqli_error($con);
+        // QUERY to insert
+        $sql = "INSERT INTO Station (station_name) VALUES ('$station_name');";
+        if (!mysqli_query($conn, $sql)) {
+            $message = "Station already exits";
+        } else {
+            $message = "Station added successfully";
+        }
     }
 
-    mysqli_close($con)
 ?>
