@@ -22,7 +22,7 @@
         }
     }
     
-    if(array_key_exists('login', $_POST)) {
-        $message = authenticate();
-    }
+    // if(array_key_exists('login', $_POST)) {
+    //     $message = authenticate();
+    // }
 ?>
