@@ -1,15 +1,15 @@
 <?php
     require $_SERVER['DOCUMENT_ROOT']."/smart-cycle/Smart-cycle/Project/config/config.php";
 
-
-    if(isset($_POST['submit'])){ 
-    
+    if(isset($_POST['book-submit'])){
+      
         //set variables from form
         $cycle_number = $_POST['cycle_number'];
         $card_number = $_POST['card_number'];
         $exp_month = $_POST['exp_month'];
         $exp_year = $_POST['exp_year'];
         $cvv = $_POST['cvv'];
+
 
         //check if cycle number is valid
         $isCycle = "select * from Cycle where cycle_number = '$cycle_number'";
@@ -40,9 +40,10 @@
     //1- Insert the details into cycle_usage table when cycle is booked
     $insertCycleUsageOnBook = "INSERT into cycle_usage 
     values ($cycle_id, $user_id, $start_date, $start_time,$card_number,$exp_month, $exp_year, $cvv)";
-
-    if(mysqli_query($con,$insertCycleUsageOnBook)){
-
+        if($res["num"]) {
+            // Check if cycle number is correct
+            $sql = "SELECT COUNT(*) AS num FROM Cycle WHERE cycle_number = '$cycle_number'";
+            $res = mysqli_fetch_assoc(mysqli_query($conn, $sql)) or die(mysqli_error($conn));
         echo "Successfully inserted in Cycle_usage";
 
          //2-Update the cycle table - availability attribute when a cycle is booked
@@ -89,5 +90,32 @@
    
     }
 ?>
+                            $message = "Couldn't change the availability of the cycle";
+                            // REVERSE inorder to make the change atomic
+                            $sql = "DELETE FROM Cycle_Usage WHERE cycle_number = '$cycle_number'";
 
+                        }
 
+                    } else {
+                        echo mysqli_error($conn);
+                        $message = "Couldn't add record into Cycle_Usage table";
+
+                    }
+                } else {
+
+                    // Cycle is not available
+                    $message = "Cycle is not available";
+
+                }
+            } else {
+
+                // Entered cycle number is wrong
+                $message = "Cycle number is wrong";
+
+            }
+        } else {
+            $message = "You can book only one cycle at a time";
+        }
+    }
+
+?>

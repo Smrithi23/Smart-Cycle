@@ -13,7 +13,6 @@
     <h1>REGISTER</h1>
     <?php
         echo $message;
-        echo $error;
     ?>
     <form id="register-form" class="form" method="POST" action="">
         Username: <input type="text" name="username" required><br>
