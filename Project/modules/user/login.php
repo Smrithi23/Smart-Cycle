@@ -14,18 +14,15 @@
             $_SESSION["username"] = $res["username"];
             $_SESSION["first_name"] = $res["first_name"];
             $_SESSION["last_name"] = $res["last_name"];
-            return [
-                'message' => 'Successfully logged in'
-            ];
+            return 'Successfully Logged In';
         } else {
             // Login not successful
-            return [
-                'message' => 'Successfully logged in'
-            ];
+            return 'Incorrect credentials';
+            
         }
     }
     
     if(array_key_exists('login', $_POST)) {
-        $result = authenticate();
+        $message = authenticate();
     }
 ?>
