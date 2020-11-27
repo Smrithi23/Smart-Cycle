@@ -1,27 +1,31 @@
 <?php
-include_once "../config.php";
+    include_once "../config.php";
 
-
-
-if(isset($_POST['submit'])){
-
-//set variables
-$username = $_POST['username'];
-$password = $_POST['password'];
-
-//QUERY -Check if entered credentials are correct
-
-$login = "SELECT MD5($username) INTO @password
-SELECT * FROM User WHERE username = $username AND password = @password"; 
-
-if(mysqli_query($con,$login)){
-
-    echo "logged in";
-}
-else{
-    echo "error";
-}
-}
+    function authenticate ($username, $password) {
+        // POST variables
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $password = "SELECT MD5($password)";
+        $count = "SELECT COUNT(*) FROM 'User' WHERE 'username' = $username AND 'password' = $password";
+        $res = "SELECT * FROM 'User' WHERE 'username' = $username AND 'password' = $password";
+        if($count === 1) {
+            // Login successful
+            // Set session variables
+            $_SESSION["username"] = $res["username"];
+            $_SESSION["first_name"] = $res["first_name"];
+            $_SESSION["last_name"] = $res["last_name"];
+            return [
+                'message' => 'Successfully logged in'
+            ];
+        } else {
+            // Login not successful
+            return [
+                'message' => 'Successfully logged in'
+            ];
+        }
+    }
+    
+    if(array_key_exists('login', $_POST)) {
+        $result = authenticate();
+    }
 ?>
-
-
