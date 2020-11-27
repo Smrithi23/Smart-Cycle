@@ -1,5 +1,5 @@
 <?php
-    include_once('../../config.php');
+    require '../../config/config.php';
 
     $station_id = mysqli_real_escape_string($con, $REQUEST['station_id']);
     $stand_name = mysqli_real_escape_string($con, $REQUEST['stand_name']);

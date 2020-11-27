@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <?php include_once "../../modules/user/drop.php"; ?> 
+    <?php include_once "../modules/user/drop.php"; ?> 
     <h1>DROP CYCLE</h1>
     <h3>CYCLE NO:</h3>
     <form id="drop-form" class="form" method="POST" action="">

@@ -1,5 +1,6 @@
 <?php
-    include_once "../config.php";
+
+    require "../config/config.php";
     
     //if form is submitted
     if(isset($_POST['submit'])){

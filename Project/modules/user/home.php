@@ -1,5 +1,5 @@
 <?php
-    include_once "../config.php";
+    require "../config/config.php";
 
     //Check if entered credentials are correct
 
