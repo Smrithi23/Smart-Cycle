@@ -1,6 +1,6 @@
 <?php
 
-    require $_SERVER['DOCUMENT_ROOT']."/config/config.php";
+    require $_SERVER['DOCUMENT_ROOT']."/Smart-Cycle/Project/config/config.php";
     
     if(isset($_POST['register-submit'])) {
 
