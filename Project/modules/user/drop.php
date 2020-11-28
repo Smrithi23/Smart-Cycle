@@ -48,7 +48,7 @@
                                 } else {
                                     $message = "Cannot return cycle. Try again later";
                                     $sql = "UPDATE Cycle SET availability = '0'";
-                                    mysqli_query($conn, $sql)
+                                    mysqli_query($conn, $sql);
                                 }
                             } else {
                                 $message = "Cannot return cycle. Try again later";

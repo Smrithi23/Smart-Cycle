@@ -3,6 +3,17 @@
 
     if(isset($_POST['book-submit'])){
 
+        /*
+            Order of checking :
+            1. Check if the user has already taken a cycle
+            2. Check if the cycle number is correct
+            3. Check if the cycle is available
+            4. Enter Record in Cycle Usage
+            5. Make the cycle not available
+            6. Change booked attribute of user to 1
+            7. Reduce the number of cycles in station by 1
+        */
+
         //set variables from form
         $cycle_number = $_POST['cycle_number'];
         $card_number = $_POST['card_number'];
@@ -10,19 +21,19 @@
         $exp_year = $_POST['exp_year'];
         $cvv = $_POST['cvv'];
 
-        // Check if the user hasnt already taken a cycle
+        // 1. Check if the user hasnt already taken a cycle
         $sql = "SELECT COUNT(*) AS num FROM User WHERE username = 'smrithi'";
         $res = mysqli_fetch_assoc(mysqli_query($conn, $sql)) or die(mysqli_error($conn));
 
-        if($res["num"]) {
-            // Check if cycle number is correct
+        if(!$res["num"]) {
+            // 2. Check if cycle number is correct
             $sql = "SELECT COUNT(*) AS num FROM Cycle WHERE cycle_number = '$cycle_number'";
             $res = mysqli_fetch_assoc(mysqli_query($conn, $sql)) or die(mysqli_error($conn));
 
             if($res["num"]) {
                 // Entered cycle number is correct
 
-                // Check if the cycle is available
+                // 3. Check if the cycle is available
                 $sql = "SELECT availability AS available FROM Cycle WHERE cycle_number = '$cycle_number'";
                 $res = mysqli_fetch_assoc(mysqli_query($conn, $sql));
 

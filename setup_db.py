@@ -2,7 +2,7 @@ import mysql.connector
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    passwd="",
+    passwd="Password12345678$",
     database="SmartCycle"
 )
 print("Starting python script")
