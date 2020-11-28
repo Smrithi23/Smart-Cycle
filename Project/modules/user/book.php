@@ -1,4 +1,5 @@
 <?php
+
     require $_SERVER['DOCUMENT_ROOT']."/config/config.php";
 
     if(isset($_POST['book-submit'])){
@@ -14,6 +15,7 @@
             7. Make the cycle not available
             8. Change booked attribute of user to 1
             9. Reduce the number of cycles in station by 1
+
         */
 
         //set variables from form
@@ -24,7 +26,7 @@
         $cvv = $_POST['cvv'];
 
         // 1. Check if the user hasnt already taken a cycle
-        $sql = "SELECT COUNT(*) AS num FROM User WHERE username = 'smrithi' AND booked = 1";
+        $sql = "SELECT COUNT(*) AS num FROM Cycle_Usage WHERE user_id = 3";
         $res = mysqli_fetch_assoc(mysqli_query($conn, $sql)) or die(mysqli_error($conn));
 
         if(!$res["num"]) {
@@ -56,11 +58,6 @@
                                 $sql = "UPDATE Cycle SET availability = '0' WHERE cycle_number = '$cycle_number'";
 
                                 if(mysqli_query($conn, $sql)) {
-
-                                    // Change booked attribute of user to 1
-                                    // $username = $_SESSION['username'];
-                                    $sql = "UPDATE User SET booked = 1 WHERE username = 'smrithi'";
-                                    mysqli_query($conn, $sql);
 
                                     // Find station_id
                                     $sql = "SELECT stand_id AS id FROM Cycle WHERE cycle_number = '$cycle_number'";

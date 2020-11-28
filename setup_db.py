@@ -37,7 +37,7 @@ cursor.execute("CREATE TABLE Stand (stand_id INT AUTO_INCREMENT PRIMARY KEY, sta
 print("Created Stand Table")
 cursor.execute("CREATE TABLE Cycle (cycle_number INT NOT NULL PRIMARY KEY, availability BOOL NOT NULL, stand_id INT NOT NULL, FOREIGN KEY(stand_id) REFERENCES Stand(stand_id))")
 print("Created Cycle Table")
-cursor.execute("CREATE TABLE User (user_id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255) NOT NULL UNIQUE, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL, phone_number VARCHAR(50) NOT NULL, password VARCHAR(255) NOT NULL, booked BOOL NOT NULL)")
+cursor.execute("CREATE TABLE User (user_id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255) NOT NULL UNIQUE, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL, phone_number VARCHAR(50) NOT NULL, password VARCHAR(255) NOT NULL)")
 print("Created User Table")
 cursor.execute("CREATE TABLE Cycle_Usage (cycle_number INT NOT NULL, user_id INT NOT NULL, start_datetime DATETIME NOT NULL, card_no VARCHAR(20) NOT NULL, exp_month INT NOT NULL, exp_year YEAR NOT NULL, cvv INT NOT NULL, FOREIGN KEY(cycle_number) REFERENCES Cycle(cycle_number))")
 print("Created Cycle_Usage Table")
@@ -234,11 +234,11 @@ val = [
 cursor.executemany(sql, val)
 print(cursor.rowcount, "records were inserted into Cycle table.")
 
-sql = "INSERT INTO User (user_id, username, first_name, last_name, phone_number, password, booked) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+sql = "INSERT INTO User (user_id, username, first_name, last_name, phone_number, password) VALUES (%s, %s, %s, %s, %s, %s)"
 val = [
-    (1, 'akshara', 'Akshara', 'P S', '7330921893', 'akshara05', 0),
-    (2, 'paavai', 'Painthamizh', 'Paavai', '7991023874', 'paavai69', 0),
-    (3, 'smrithi', 'Smrithi', 'Prakash', '7552893678', 'smrithi89', 0)
+    (1, 'akshara', 'Akshara', 'P S', '7330921893', 'akshara05'),
+    (2, 'paavai', 'Painthamizh', 'Paavai', '7991023874', 'paavai69'),
+    (3, 'smrithi', 'Smrithi', 'Prakash', '7552893678', 'smrithi89')
 ]
 
 cursor.executemany(sql, val)
