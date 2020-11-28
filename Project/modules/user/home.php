@@ -20,10 +20,10 @@
     $num = $res["num"];
 
     if($num==0) { 
-        echo "<a href = '/user/book.php'><button>Book</button></a><br><br>"; 
+        echo "<nav><a href = '/user/book.php'><button>Book</button></a></nav>"; 
     } 
     else { 
-        echo "<a href = '/user/drop.php'><button>Drop</button></a><br><br>";
+        echo "<nav><a href = '/user/drop.php'><button>Drop</button></a></nav>";
     }
 
 
@@ -32,7 +32,10 @@
 
     echo "<table>";
     echo "<tr>
-            <td><h4>Station name</h4></td><td><h4>Stand name</h4></td><td><h4>No of cycles</h4></td></tr>";
+            <th>Station name</th>
+            <th>Stand name</th>
+            <th>No of cycles</th>
+        </tr>";
     while($row = mysqli_fetch_array($result, MYSQLI_NUM)) {   
         echo '<tr>';
         echo '<td>'. $row[0] . '</td>';

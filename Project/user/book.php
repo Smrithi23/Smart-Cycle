@@ -1,39 +1,58 @@
 <html>
-
+<?php
+    session_start();
+    session_regenerate_id();
+    if(!$_SESSION["authenticated"]) {
+        header("Location: /user/login.php");
+    }
+?>
 <head>
     <title>Smart Cycle</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <?php header("Content-Type: text/html; charset=ISO-8859-1"); ?>
 </head>
 
 <body>
+    <div class="page-header">
+       <h1>Smart Cycle Management</h1>
+    </div>
+    <nav>
+        <a href="/user/home.php"><button>Back</button></a>
+    </nav>
     <?php
         $message = "";
         include_once $_SERVER['DOCUMENT_ROOT']."/modules/user/book.php";
+        include_once $_SERVER['DOCUMENT_ROOT']."/user/css/style.php";
     ?>
-    <?php echo $message ?>
     <div class="container">
-        <h2 style="color: blue">RENT A CYCLE</h2>
         <form class="form-horizontal" id="book-form" action="" method="POST">
-            <div class="form-group">
-                <label class="control-label col-sm-2">Cycle Number</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" name="cycle_number" placeholder="cycle number" required>
+            <div>
+                <h2 class="form-header">Rent a cycle</h2>
+            </div>
+            <div class="input-wrapper">
+                <div class="inside-wrapper">
+                    <?php echo $message; ?>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">Card-Number:</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" name="card_number" placeholder="card number" required>
+            <div class="input-wrapper">
+                <div class="inside-wrapper">
+                    <label>Cycle Number</label>
+                    <input type="number" class="form-control" name="cycle_number" placeholder="Enter cycle number" required>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">Exp Month:</label>
-                <div class="col-sm-10">
+            <div class="input-wrapper">
+                <div class="inside-wrapper">
+                    <label>Card Number</label>
+                    <input type="number" class="form-control" name="card_number" placeholder="Enter card number" required>
+                </div>
+            </div>
+            <div class="input-wrapper">
+                <div class="inside-wrapper">
+                    <label>Exp Month</label>
                     <select name="exp_month" id="exp_month">
                         <option value="1">01</option>
                         <option value="2">02</option>
@@ -50,10 +69,9 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">Exp Year:</label>
-                <div class="col-sm-10">
-
+            <div class="input-wrapper">
+                <div class="inside-wrapper">
+                    <label>Exp Year</label>
                     <select name="exp_year" id="exp_year">
                         <option value="2020">20</option>
                         <option value="2021">21</option>
@@ -79,16 +97,14 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">cvv:</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" name="cvv" placeholder="cvv" required>
+            <div class="input-wrapper">
+                <div class="inside-wrapper">
+                    <label>cvv</label>
+                    <input type="number" class="form-control" name="cvv" placeholder="Enter cvv" required>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" name="book-submit" value="book" class="btn btn-default">Rent</button>
-                </div>
+            <div class="input-wrapper">
+                <button class="inside-wrapper btn btn-default" type="submit" name="book-submit" value="book">Rent</button>
             </div>
         </form>
     </div>

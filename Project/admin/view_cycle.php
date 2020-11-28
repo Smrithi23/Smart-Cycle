@@ -21,15 +21,13 @@
        <h1>Smart Cycle Management</h1>
     </div>
     <nav>
-        <a href="/admin/view_cycle.php"><button>View cycle </button></a>
-        <a href="/admin/view_station.php"><button>View station </button></a>
-        <a href="/admin/view_stand.php"><button>View stand </button></a>
-        <a href="/admin/add_cycle.php"><button>Add cycle </button></a>
-        <a href="/admin/add_station.php"><button>Add station </button></a>
-        <a href="/admin/add_stand.php"><button>Add stand </button></a>
+        <a href="/admin/home.php"><button>Back</button></a>
     </nav>
+    <div class="table-title">
+        Cycle Details
+    </div>
     <?php 
-        include_once $_SERVER['DOCUMENT_ROOT']."/modules/admin/home.php";
+        include_once $_SERVER['DOCUMENT_ROOT']."/modules/admin/view_cycle.php";
         include_once $_SERVER['DOCUMENT_ROOT']."/admin/css/style.php";
     ?>
 </body>

@@ -1,7 +1,8 @@
 <?php
     require $_SERVER['DOCUMENT_ROOT']."/config/config.php";
-
     if(isset($_POST['login-submit'])) {
+        session_destroy();
+        session_start();
         // POST variables
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -12,7 +13,8 @@
         if($count["num"]) {
             // Login successful
             // Set session variables
-            $_SESSION["authenticated"] = "true";
+            $_SESSION["admin"] = 1;
+            header('Location: /admin/home.php');
             $message = "<div class=\"alert alert-success\" role=\"alert\">Successfully logged in<div>";
         } else {
             // Login not successful
