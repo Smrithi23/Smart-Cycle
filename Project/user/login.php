@@ -16,11 +16,7 @@
 <body>
     <?php 
         $message = "";
-<<<<<<< HEAD
         require $_SERVER['DOCUMENT_ROOT']."/modules/user/login.php";
-=======
-        require $_SERVER['DOCUMENT_ROOT']."/Smart-Cycle/Project/modules/user/login.php";
->>>>>>> origin/paavai
     ?>
           
 <div class="container">
