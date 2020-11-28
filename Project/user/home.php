@@ -5,11 +5,14 @@
 </head>
 
 <body>
-    <?php include_once $_SERVER['DOCUMENT_ROOT']."/modules/user/home.php"; ?>
-    <h1>HOME</h1>
-    <form id="home-search" class="form" method="POST" action="">
-        <input type="submit" name="search" value="search">
-    </form>
+<h1>HOME</h1>
+
+    <?php
+     include_once $_SERVER['DOCUMENT_ROOT']."/smart-cycle/Smart-cycle/Project/modules/user/home.php"; 
+   
+     
+    ?>
+    
 </body>
 
 </html>
