@@ -1,5 +1,5 @@
 <?php
-    require $_SERVER['DOCUMENT_ROOT']."/Smart-Cycle/Project/config/config.php";
+    require $_SERVER['DOCUMENT_ROOT']."/config/config.php";
 
     if(isset($_POST['login-submit'])) {
         // POST variables
@@ -8,17 +8,15 @@
 
         $sql1 = "SELECT COUNT(*) AS num FROM Admin WHERE username = '$username' AND password = MD5('$password')";
         $count = mysqli_fetch_assoc(mysqli_query($conn, $sql1)) or die(mysqli_error($conn));
-
-        var_dump($count);
         
         if($count["num"]) {
             // Login successful
             // Set session variables
             $_SESSION["authenticated"] = "true";
-            $message = "Successfully logged in";
+            $message = "<div class=\"alert alert-success\" role=\"alert\">Successfully logged in<div>";
         } else {
             // Login not successful
-            $message = "Incorrect credentials";
+            $message = "<div class=\"alert alert-danger\" role=\"alert\">Incorrect credentials</div>";
         }
     }
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-    require $_SERVER['DOCUMENT_ROOT']."/Smart-Cycle/Project/config/config.php";
+    require $_SERVER['DOCUMENT_ROOT']."/config/config.php";
 
     if(isset($_POST['drop-submit'])){
 
@@ -88,51 +88,51 @@
 
                                         if(mysqli_query($conn, $sql)) {
 
-                                            $message = "Dropped Cycle. Amount to be paid : Rs. $amount";
+                                            $message = "<div class=\"alert alert-success\" role=\"alert\">Dropped Cycle. Amount to be paid : Rs. $amount</div>";
 
                                         } else {
 
-                                            $message = "Cannot return cycle. Try again later";
+                                            $message = "<div class=\"alert alert-danger\" role=\"alert\">Cannot return cycle. Try again later</div>";
 
                                         }
                                     } else {
 
-                                        $message = "Cannot return cycle. Try again later";
+                                        $message = "<div class=\"alert alert-danger\" role=\"alert\">Cannot return cycle. Try again later</div>";
                                         
                                     }
                                 } else {
 
-                                    $message = "Cannot return cycle. Try again later";
+                                    $message = "<div class=\"alert alert-danger\" role=\"alert\">Cannot return cycle. Try again later</div>";
 
                                 }
                             } else {
 
-                                $message = "Cannot return cycle. Try again later";
+                                $message = "<div class=\"alert alert-danger\" role=\"alert\">Cannot return cycle. Try again later</div>";
 
                             }
                         } else {
 
-                            $message = "Cannot return cycle. Try again later";
+                            $message = "<div class=\"alert alert-danger\" role=\"alert\">Cannot return cycle. Try again later</div>";
 
                         }
                     } else {
 
-                        $message = "Cannot return cycle. Try again later";
+                        $message = "<div class=\"alert alert-danger\" role=\"alert\">Cannot return cycle. Try again later</div>";
 
                     }
                 } else {
 
-                    $message = "Cannot return cycle. Try again later";
+                    $message = "<div class=\"alert alert-danger\" role=\"alert\">Cannot return cycle. Try again later</div>";
 
                 }
             } else {
 
-                $message = "Cannot return cycle. Try again later";
+                $message = "<div class=\"alert alert-danger\" role=\"alert\">Cannot return cycle. Try again later</div>";
 
             }
         } else {
 
-            $message = "No cycle to return";
+            $message = "<div class=\"alert alert-danger\" role=\"alert\">No cycle to return</div>";
 
         }
     }

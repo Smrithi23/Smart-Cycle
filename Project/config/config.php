@@ -1,7 +1,6 @@
 <?php
 
     //Include the config file in every other page
-    session_start();
     $servername = "localhost";
     $dBUsername = "root";
     $dBPassword = "Password12345678$";

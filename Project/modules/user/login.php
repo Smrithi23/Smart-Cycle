@@ -18,10 +18,10 @@
             $_SESSION["username"] = $result["username"];
             $_SESSION["first_name"] = $result["first_name"];
             $_SESSION["last_name"] = $result["last_name"];
-            $message = "Successfully logged in";
+            $message = "<div class=\"alert alert-success\" role=\"alert\">Successfully logged in</div>";
         } else {
             // Login not successful
-            $message = "Incorrect credentials";
+            $message = "<div class=\"alert alert-danger\" role=\"alert\">Incorrect credentials</div>";
         }
     }
 ?>

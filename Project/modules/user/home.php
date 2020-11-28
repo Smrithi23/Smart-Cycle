@@ -1,5 +1,5 @@
 <?php
-    require $_SERVER['DOCUMENT_ROOT']."/Smart-Cycle/Project/config/config.php";
+    require $_SERVER['DOCUMENT_ROOT']."/config/config.php";
 
     // Check if entered credentials are correct
 
@@ -8,10 +8,10 @@
     // FROM Cycle 
     // WHERE availability = True";
 
-    $username = $_SESSION['username'];
-    echo '<br> <h2> Hello '. $username . '</h2><br>';
+    // $username = $_SESSION['username'];
+    // echo '<br> <h2> Hello '. $username . '</h2><br>';
 
-    $getUserId = "select user_id from User where username = '$username'";
+    $getUserId = "SELECT user_id FROM User WHERE user_id = 3";
     $res = mysqli_fetch_assoc(mysqli_query($conn, $getUserId));
     $user_id = $res["user_id"];
 

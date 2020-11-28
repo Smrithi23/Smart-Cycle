@@ -67,11 +67,11 @@
                                     $sql = "UPDATE Stand SET no_of_cycles = no_of_cycles - 1 WHERE stand_id = '$stand_id'";
                                     mysqli_query($conn, $sql);
 
-                                    $message = "Successfully booked cycle. Deducted Rs 21.00.";
+                                    $message = "<div class=\"alert alert-success\" role=\"alert\">Successfully booked cycle. Deducted Rs 21.00.</div>";
 
                                 } else {
 
-                                    $message = "Couldn't change the availability of the cycle";
+                                    $message = "<div class=\"alert alert-danger\" role=\"alert\">Couldn't change the availability of the cycle</div>";
 
                                     // REVERSE inorder to make the change atomic
                                     $sql = "DELETE FROM Cycle_Usage WHERE cycle_number = '$cycle_number'";
@@ -81,35 +81,35 @@
                             } else {
 
                                 echo mysqli_error($conn);
-                                $message = "Couldn't add record into Cycle_Usage table";
+                                $message = "<div class=\"alert alert-danger\" role=\"alert\">Couldn't add record into Cycle_Usage table</div>";
 
                             }
                         } else {
 
                             // CVV is invalid
-                            $message = "CVV is invalid";
+                            $message = "<div class=\"alert alert-danger\" role=\"alert\">CVV is invalid</div>";
 
                         }
                     } else {
 
                         // Credit card is invalid
-                        $message = "Credit card is invalid";
+                        $message = "<div class=\"alert alert-danger\" role=\"alert\">Credit card is invalid</div>";
 
                     }
                 } else {
 
                     // Cycle is not available
-                    $message = "Cycle is not available";
+                    $message = "<div class=\"alert alert-danger\" role=\"alert\">Cycle is not available</div>";
 
                 }
             } else {
 
                 // Entered cycle number is wrong
-                $message = "Cycle number is wrong";
+                $message = "<div class=\"alert alert-danger\" role=\"alert\">Cycle number is wrong</div>";
 
             }
         } else {
-            $message = "You can book only one cycle at a time";
+            $message = "<div class=\"alert alert-danger\" role=\"alert\">You can book only one cycle at a time</div>";
         }
     }
 

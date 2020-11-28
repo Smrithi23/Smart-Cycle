@@ -1,6 +1,6 @@
 <?php
 
-    require $_SERVER['DOCUMENT_ROOT'].'/Smart-Cycle/Project/config/config.php';
+    require $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
 
     if(isset($_POST['add-station-submit'])) {
 
@@ -10,9 +10,9 @@
         // QUERY to insert
         $sql = "INSERT INTO Station (station_name) VALUES ('$station_name');";
         if (!mysqli_query($conn, $sql)) {
-            $message = "Station already exits";
+            $message = "<div class=\"alert alert-danger\" role=\"alert\">Station already exits</div>";
         } else {
-            $message = "Station added successfully";
+            $message = "<div class=\"alert alert-success\" role=\"alert\">Station added successfully</div>";
         }
     }
 

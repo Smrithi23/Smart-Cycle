@@ -1,6 +1,6 @@
 <?php
 
-    require $_SERVER['DOCUMENT_ROOT'].'/Smart-Cycle/Project/config/config.php';
+    require $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
 
     if(isset($_POST['add-cycle-submit'])) {
 
@@ -13,7 +13,7 @@
         $sql = "SELECT COUNT(*) AS num FROM Cycle WHERE cycle_number = '$cycle_number'";
         $check = mysqli_fetch_assoc(mysqli_query($conn, $sql));
         if($check["num"]) {
-            $message = "Cycle already exists";
+            $message = "<div class=\"alert alert-danger\" role=\"alert\">Cycle already exists</div>";
         } else {
             // QUERY to find station id
             $sql = "SELECT station_id AS id FROM Station WHERE station_name = '$station_name'";
@@ -39,28 +39,28 @@
                         $sql = "UPDATE Stand SET no_of_cycles = no_of_cycles + 1 WHERE stand_id = '$stand_id'";
                         if(mysqli_query($conn, $sql)) {
 
-                            $message = "Cycle added successfully";
+                            $message = "<div class=\"alert alert-success\" role=\"alert\">Cycle added successfully</div>";
 
                         } else {
 
-                            $message = "Cycle couldn't be added";
+                            $message = "<div class=\"alert alert-danger\" role=\"alert\">Cycle couldn't be added<div>";
                             
                         }
 
                     } else {
 
-                        $message = "Cycle couldn't be added";
+                        $message = "<div class=\"alert alert-danger\" role=\"alert\">Cycle couldn't be added</div>";
 
                     }
 
                 } else {
 
-                    $message = "Stand does not exist";
+                    $message = "<div class=\"alert alert-danger\" role=\"alert\">Stand does not exist</div>";
 
                 }
             } else {
 
-                $message = "Station does not exist";
+                $message = "<div class=\"alert alert-danger\" role=\"alert\">Station does not exist</div>";
 
             }
         }

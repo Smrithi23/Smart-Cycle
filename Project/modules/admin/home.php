@@ -1,5 +1,4 @@
 <?php
-    include'styles.css';
 
     ini_set('memory_limit', '-1');
     require $_SERVER['DOCUMENT_ROOT'].'/config/config.php';

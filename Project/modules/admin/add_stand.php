@@ -1,6 +1,6 @@
 <?php
 
-    require $_SERVER['DOCUMENT_ROOT'].'/Smart-Cycle/Project/config/config.php';
+    require $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
 
     if(isset($_POST['add-stand-submit'])) {
 
@@ -14,13 +14,13 @@
 
         if($check["num"]) {
 
-            $message = "Station already exists";
+            $message = "<div class=\"alert alert-danger\" role=\"alert\">Stand already exists</div>";
 
         } else {
 
             // QUERY to find station id
             $sql = "SELECT station_id AS id FROM Station WHERE station_name = '$station_name'";
-            $res = mysqli_fetch_assoc(mysqli_query($conn, $sql)) or die(mysqli_error($conn));
+            $res = mysqli_fetch_assoc(mysqli_query($conn, $sql));
 
             if($res['id']) {
                 $station_id = $res['id'];
@@ -28,11 +28,11 @@
                 // QUERY to insert
                 $sql = "INSERT INTO Stand (stand_name, station_id) VALUES ('$stand_name', '$station_id');";
                 mysqli_query($conn, $sql);
-                $message = "Station added successfully";
+                $message = "<div class=\"alert alert-success\" role=\"alert\">Stand added successfully</div>";
 
             } else {
 
-                $message = "Station does not exist";
+                $message = "<div class=\"alert alert-danger\" role=\"alert\">Station does not exist</div>";
 
             }
         }
