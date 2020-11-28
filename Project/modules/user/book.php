@@ -1,6 +1,10 @@
 <?php
+<<<<<<< HEAD
 
     require $_SERVER['DOCUMENT_ROOT']."/config/config.php";
+=======
+    require $_SERVER['DOCUMENT_ROOT']."/Smart-Cycle/Project/config/config.php";
+>>>>>>> origin/paavai
 
     if(isset($_POST['book-submit'])){
 
@@ -15,7 +19,10 @@
             7. Make the cycle not available
             8. Change booked attribute of user to 1
             9. Reduce the number of cycles in station by 1
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/paavai
         */
 
         //set variables from form
@@ -26,7 +33,11 @@
         $cvv = $_POST['cvv'];
 
         // 1. Check if the user hasnt already taken a cycle
+<<<<<<< HEAD
         $sql = "SELECT COUNT(*) AS num FROM Cycle_Usage WHERE user_id = 3";
+=======
+        $sql = "SELECT COUNT(*) AS num FROM User WHERE username = 'smrithi' AND booked = 1";
+>>>>>>> origin/paavai
         $res = mysqli_fetch_assoc(mysqli_query($conn, $sql)) or die(mysqli_error($conn));
 
         if(!$res["num"]) {
@@ -58,6 +69,7 @@
                                 $sql = "UPDATE Cycle SET availability = '0' WHERE cycle_number = '$cycle_number'";
 
                                 if(mysqli_query($conn, $sql)) {
+<<<<<<< HEAD
 
                                     // Find station_id
                                     $sql = "SELECT stand_id AS id FROM Cycle WHERE cycle_number = '$cycle_number'";
@@ -79,6 +91,34 @@
 
                                 }
 
+=======
+
+                                    // Change booked attribute of user to 1
+                                    // $username = $_SESSION['username'];
+                                    $sql = "UPDATE User SET booked = 1 WHERE username = 'smrithi'";
+                                    mysqli_query($conn, $sql);
+
+                                    // Find station_id
+                                    $sql = "SELECT stand_id AS id FROM Cycle WHERE cycle_number = '$cycle_number'";
+                                    $res = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+                                    $stand_id = $res['id'];
+
+                                    // Reduce the number of cycles in the station
+                                    $sql = "UPDATE Stand SET no_of_cycles = no_of_cycles - 1 WHERE stand_id = '$stand_id'";
+                                    mysqli_query($conn, $sql);
+
+                                    $message = "Successfully booked cycle. Deducted Rs 21.00.";
+
+                                } else {
+
+                                    $message = "Couldn't change the availability of the cycle";
+
+                                    // REVERSE inorder to make the change atomic
+                                    $sql = "DELETE FROM Cycle_Usage WHERE cycle_number = '$cycle_number'";
+
+                                }
+
+>>>>>>> origin/paavai
                             } else {
 
                                 echo mysqli_error($conn);

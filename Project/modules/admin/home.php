@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
     include'styles.css';
+=======
+    require $_SERVER['DOCUMENT_ROOT'].'/Smart-Cycle/Project/config/config.php';
+>>>>>>> origin/paavai
 
     ini_set('memory_limit', '-1');
     require $_SERVER['DOCUMENT_ROOT'].'/config/config.php';

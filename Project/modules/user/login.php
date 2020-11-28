@@ -1,6 +1,10 @@
 <?php
 
+<<<<<<< HEAD
     require $_SERVER['DOCUMENT_ROOT']."/config/config.php";
+=======
+    require $_SERVER['DOCUMENT_ROOT']."/Smart-Cycle/Project/config/config.php";
+>>>>>>> origin/paavai
 
     if(isset($_POST['login-submit'])) {
         // POST variables

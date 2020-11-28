@@ -39,7 +39,7 @@ cursor.execute("CREATE TABLE Cycle (cycle_number INT NOT NULL PRIMARY KEY, avail
 print("Created Cycle Table")
 cursor.execute("CREATE TABLE User (user_id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255) NOT NULL UNIQUE, first_name VARCHAR(255) NOT NULL, last_name VARCHAR(255) NOT NULL, phone_number VARCHAR(50) NOT NULL, password VARCHAR(255) NOT NULL)")
 print("Created User Table")
-cursor.execute("CREATE TABLE Cycle_Usage (cycle_number INT NOT NULL, user_id INT NOT NULL, start_datetime DATETIME NOT NULL, card_no VARCHAR(20) NOT NULL, exp_month INT NOT NULL, exp_year YEAR NOT NULL, cvv INT NOT NULL, FOREIGN KEY(cycle_number) REFERENCES Cycle(cycle_number))")
+cursor.execute("CREATE TABLE Cycle_Usage (cycle_number INT NOT NULL, user_id INT NOT NULL, start_datetime DATETIME NOT NULL, card_no varchar(16) NOT NULL, exp_month INT NOT NULL, exp_year YEAR NOT NULL, cvv INT NOT NULL, FOREIGN KEY(cycle_number) REFERENCES Cycle(cycle_number))")
 print("Created Cycle_Usage Table")
 cursor.execute("CREATE TABLE Admin (admin_id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255) NOT NULL UNIQUE, password VARCHAR(255) NOT NULL)")
 print("Created Admin")
