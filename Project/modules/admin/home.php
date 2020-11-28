@@ -1,23 +1,25 @@
 <?php
-include'styles.css';
+    include'styles.css';
 
-ini_set('memory_limit', '-1');
-    require $_SERVER['DOCUMENT_ROOT'].'/smart-cycle/Smart-cycle/Project/config/config.php';
+    ini_set('memory_limit', '-1');
+    require $_SERVER['DOCUMENT_ROOT'].'/config/config.php';
 
    // $sql = "SELECT cycle_number, availability, station_name, stand_name FROM Cycle join Stand join Station";
-    $getCycleNo = "select station_name, stand_name, no_of_cycles from Stand join Station on stand.station_id = station.station_id";
+    $getCycleNo = "SELECT station_name, stand_name, no_of_cycles FROM Stand INNER JOIN Station on Stand.station_id = Station.station_id";
     $result = (mysqli_query($conn,$getCycleNo)) or die(mysqli_error($conn));
 
-    echo '<table>';
-    echo '<tr> <td> <h4> Station name</h4> </td> <td><h4>Stand name</h4> </td> <td><h4>  No of cycles</h4> </td> </tr> ';
-    while($row = mysqli_fetch_array($result, MYSQLI_NUM)) 
-    {   echo '<tr>';
-        echo '<td>'. $row[0] . '</td>';
-        echo '<td>'. $row[1] . '</td>';
-        echo '<td>'. $row[2] . '</td>';
-
-        echo '</tr>';
+    echo "<table>";
+    echo "<tr>
+            <td> <h4> Station name</h4> </td>
+            <td> <h4>Stand name</h4> </td> 
+            <td> <h4>  No of cycles</h4> </td>
+        </tr>";
+    while($row = mysqli_fetch_array($result, MYSQLI_NUM)) {   
+        echo "<tr>";
+        echo "<td>". $row[0] . "</td>";
+        echo "<td>". $row[1] . "</td>";
+        echo "<td>". $row[2] . "</td>";
+        echo "</tr>";
     }
-    
-    echo '</table>';
-    ?>
+    echo "</table>";
+?>

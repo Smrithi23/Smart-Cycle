@@ -7,7 +7,7 @@
 <body>
     <?php 
         $message = "";
-        require $_SERVER['DOCUMENT_ROOT']."/smart-cycle/Smart-cycle/Project/modules/user/login.php";
+        require $_SERVER['DOCUMENT_ROOT']."/modules/user/login.php";
     ?>
     <h1>User Login</h1>
     <?php echo $message; ?>
