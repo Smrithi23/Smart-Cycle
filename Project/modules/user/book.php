@@ -24,8 +24,10 @@
         $exp_year = $_POST['exp_year'];
         $cvv = $_POST['cvv'];
 
+        // SESSION variables
+        $user_id = $_SESSION["user_id"];
         // 1. Check if the user hasnt already taken a cycle
-        $sql = "SELECT COUNT(*) AS num FROM Cycle_Usage WHERE user_id = 3";
+        $sql = "SELECT COUNT(*) AS num FROM Cycle_Usage WHERE user_id = '$user_id'";
         $res = mysqli_fetch_assoc(mysqli_query($conn, $sql)) or die(mysqli_error($conn));
 
         if(!$res["num"]) {
@@ -49,7 +51,7 @@
                         if(strlen($cvv) === 3) {
                             // Enter record into Cycle_Usage table
                             $sql = "INSERT INTO Cycle_Usage (cycle_number, user_id, start_datetime, card_no, exp_month, exp_year, cvv) 
-                            VALUES ('$cycle_number', '3', NOW(), '$card_number', '$exp_month', '$exp_year', '$cvv')";
+                            VALUES ('$cycle_number', '$user_id', NOW(), '$card_number', '$exp_month', '$exp_year', '$cvv')";
 
                             if(mysqli_query($conn, $sql)) {
 

@@ -96,4 +96,17 @@ nav a button:hover {
     text-decoration: none;
 }
 
+.logout {
+    position: absolute;
+    right: 0;
+    border: 0;
+}
+
+.logout button {
+    background: #eee;
+    border: 0;
+    color: #084A97;
+    font-size: 1.5em;
+}
+
 </style>

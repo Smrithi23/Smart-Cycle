@@ -11,9 +11,8 @@
     // $username = $_SESSION['username'];
     // echo '<br> <h2> Hello '. $username . '</h2><br>';
 
-    $getUserId = "SELECT user_id FROM User WHERE user_id = 3";
-    $res = mysqli_fetch_assoc(mysqli_query($conn, $getUserId));
-    $user_id = $res["user_id"];
+    // SESSION variables
+    $user_id = $_SESSION["user_id"];
 
     $sql = "SELECT COUNT(*) AS num FROM Cycle_Usage WHERE user_id = '$user_id'";
     $res = mysqli_fetch_assoc(mysqli_query($conn, $sql));

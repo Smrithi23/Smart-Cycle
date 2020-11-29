@@ -17,8 +17,12 @@
 </head>
 
 <body>
+    <?php include_once $_SERVER['DOCUMENT_ROOT']."/modules/user/logout.php"; ?>
     <div class="page-header">
        <h1>Smart Cycle Management</h1>
+       <form class="logout" method="POST">
+            <button type="submit" name="logout-submit">Logout</button>
+       </form>
     </div>
     <?php 
         include_once $_SERVER['DOCUMENT_ROOT']."/modules/user/home.php";

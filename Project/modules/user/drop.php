@@ -24,16 +24,18 @@
         $station_name = $_POST["station_name"];
         $stand_name = $_POST["stand_name"];
 
+        // SESSION variables
+        $user_id = $_SESSION["user_id"];
         // $user_id = $_SESSION['user_id'];
         // 1. Check if the user has taken a cycle
 
-        $sql = "SELECT COUNT(*) AS num FROM Cycle_Usage WHERE user_id = 3";
+        $sql = "SELECT COUNT(*) AS num FROM Cycle_Usage WHERE user_id = '$user_id'";
         $res = mysqli_fetch_assoc(mysqli_query($conn, $sql));
         
         if($res["num"]) {
          
             // 2. Get cycle number
-            $sql = "SELECT cycle_number AS num FROM Cycle_Usage WHERE user_id = 3";
+            $sql = "SELECT cycle_number AS num FROM Cycle_Usage WHERE user_id = '$user_id'";
             $res = mysqli_fetch_assoc(mysqli_query($conn, $sql));
 
             if($res["num"]) {
